@@ -2,7 +2,8 @@ version: 0.2
 
 env:
   variables:
-    _PROJECT_NAME: "product"
+    _PROJECT_NAME: "skccuser7-product"
+    _SVC_NAME: "product"
 
 phases:
   install:
@@ -43,33 +44,33 @@ phases:
           apiVersion: v1
           kind: Service
           metadata:
-            name: $_PROJECT_NAME
+            name: $_SVC_NAME
             labels:
-              app: $_PROJECT_NAME
+              app: $_SVC_NAME
           spec:
             ports:
               - port: 8080
                 targetPort: 8080
             selector:
-              app: $_PROJECT_NAME
+              app: $_SVC_NAME
           EOF
       - |
           cat  <<EOF | kubectl apply -f -
           apiVersion: apps/v1
           kind: Deployment
           metadata:
-            name: $_PROJECT_NAME
+            name: $_SVC_NAME
             labels:
-              app: $_PROJECT_NAME
+              app: $_SVC_NAME
           spec:
             replicas: 1
             selector:
               matchLabels:
-                app: $_PROJECT_NAME
+                app: $_SVC_NAME
             template:
               metadata:
                 labels:
-                  app: $_PROJECT_NAME
+                  app: $_SVC_NAME
               spec:
                 containers:
                   - name: $_PROJECT_NAME
@@ -96,4 +97,4 @@ phases:
 cache:
   paths:
     - '/root/.m2/**/*'
-#1111111111
+
